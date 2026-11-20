@@ -8,6 +8,31 @@ from chatbot import (
     stream_message,
     validate_api_key,
 )
+st.markdown(
+    """
+    <style>
+    /* Pure black main app and header */
+    .stApp, [data-testid="stHeader"], [data-testid="stBottom"] {
+        background-color: #000000 !important;
+    }
+
+    /* Slightly elevated dark surface for the sidebar */
+    [data-testid="stSidebar"] {
+        background-color: #0A0A0A !important;
+        border-right: 1px solid #1F1F1F;
+    }
+
+    /* Chat message bubbles */
+    [data-testid="stChatMessage"] {
+        background-color: #0D0D0D;
+        border: 1px solid #1F1F1F;
+        border-radius: 12px;
+        padding: 1rem;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 # 1. Page Configuration
 st.set_page_config(
