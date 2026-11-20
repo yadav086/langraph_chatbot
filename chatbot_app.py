@@ -9,9 +9,90 @@ from chatbot import (
     validate_api_key,
 )
 
+# 1. Page Configuration & Pure Black Styling
+st.set_page_config(
+    page_title="Gemini AI Workspace",
+    page_icon=":material/smart_toy:",
+    layout="centered",
+    initial_sidebar_state="expanded",
+)
 
+st.markdown(
+    """
+    <style>
+    html, body, .stApp,
+    [data-testid="stAppViewContainer"],
+    [data-testid="stMain"],
+    [data-testid="stHeader"],
+    [data-testid="stToolbar"],
+    [data-testid="stBottom"],
+    [data-testid="stBottomBlockContainer"],
+    [data-testid="stSidebar"],
+    [data-testid="stSidebarContent"] {
+        background-color: #000000 !important;
+        color: #FFFFFF !important;
+    }
+    [data-testid="stSidebar"] {
+        border-right: 1px solid #1E1E1E !important;
+    }
+    input, textarea, select,
+    [data-baseweb="input"],
+    [data-baseweb="base-input"],
+    [data-baseweb="textarea"],
+    [data-baseweb="select"] > div,
+    [data-testid="stChatInput"],
+    [data-testid="stChatInput"] > div {
+        background-color: #000000 !important;
+        color: #FFFFFF !important;
+        border-color: #2A2A2A !important;
+    }
+    .stButton > button, .stDownloadButton > button, [data-testid="stFormSubmitButton"] > button {
+        background-color: #000000 !important;
+        color: #FFFFFF !important;
+        border: 1px solid #333333 !important;
+    }
+    .stButton > button:hover, .stDownloadButton > button:hover, [data-testid="stFormSubmitButton"] > button:hover {
+        background-color: #141414 !important;
+        border-color: #666666 !important;
+    }
+    [data-testid="stChatMessage"], pre, code {
+        background-color: #000000 !important;
+        border: 1px solid #1E1E1E !important;
+        border-radius: 10px;
+    }
+    .block-container {
+        max-width: 820px;
+        padding-top: 2rem;
+        padding-bottom: 5rem;
+    }
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        margin-top: 0.25rem;
+    }
+    .status-connected {
+        background-color: rgba(16, 185, 129, 0.15);
+        color: #10b981;
+        border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+    .status-disconnected {
+        background-color: rgba(245, 158, 11, 0.15);
+        color: #f59e0b;
+        border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
-# 3. Session State Initialization
+# 2. Session State Initialization
 if "api_key" not in st.session_state:
     st.session_state.api_key = ""
 if "connected" not in st.session_state:
@@ -20,8 +101,10 @@ if "thread_id" not in st.session_state:
     st.session_state.thread_id = "chat_default"
 if "pending_prompt" not in st.session_state:
     st.session_state.pending_prompt = None
+if "model_name" not in st.session_state:
+    st.session_state.model_name = "gemini-3.5-flash-lite"
 
-# 4. Sidebar Controls
+# 3. Sidebar Controls
 with st.sidebar:
     st.markdown("### :material/key: API Configuration")
 
@@ -112,13 +195,17 @@ with st.sidebar:
 
     st.divider()
 
-    # Model & Persona Settings
+    # Model & Persona Settings (User-Entered Model Name)
     st.markdown("### :material/tune: Model Settings")
-    model_name = st.selectbox(
-        "Model",
-        options=[],
-        index=0,
+    model_input = st.text_input(
+        "Model Name",
+        value=st.session_state.model_name,
+        placeholder="e.g., gemini-3.5-flash-lite, gemini-2.5-pro",
+        help="Enter any valid Google Gemini model ID.",
     )
+    model_name = model_input.strip() or "gemini-3.5-flash-lite"
+    st.session_state.model_name = model_name
+
     temperature = st.slider(
         "Temperature",
         min_value=0.0,
@@ -132,11 +219,13 @@ with st.sidebar:
         height=90,
     )
 
-# 5. Main Workspace Header
+# 4. Main Workspace Header
 header_col, export_col = st.columns([5, 1])
 with header_col:
     st.markdown("## :material/smart_toy: Gemini AI Assistant")
-    st.caption(f"LangGraph + SQLite Memory  •  Thread `{st.session_state.thread_id}`")
+    st.caption(
+        f"Model `{model_name}`  •  Thread `{st.session_state.thread_id}`"
+    )
 
 if not st.session_state.connected:
     st.info(
@@ -161,7 +250,7 @@ with export_col:
             use_container_width=True,
         )
 
-# 6. Starter Prompts for Empty Threads
+# 5. Starter Prompts for Empty Threads
 if not history:
     st.markdown("#### How can I help you today?")
     c1, c2, c3 = st.columns(3)
@@ -184,13 +273,13 @@ if not history:
             )
             st.rerun()
 
-# 7. Render Message History with Human & AI Icons
+# 6. Render Message History with Human & AI Icons
 for msg in history:
     avatar = ":material/person:" if msg["role"] == "user" else ":material/smart_toy:"
     with st.chat_message(msg["role"], avatar=avatar):
         st.markdown(msg["content"])
 
-# 8. Handle User Input & Live Token Streaming
+# 7. Handle User Input & Live Token Streaming
 prompt = st.chat_input("Ask anything...") or st.session_state.pending_prompt
 if prompt:
     st.session_state.pending_prompt = None
