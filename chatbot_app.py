@@ -116,7 +116,7 @@ with st.sidebar:
     st.markdown("### :material/tune: Model Settings")
     model_name = st.selectbox(
         "Model",
-        options=["gemini-3.5-flash-lite", "gemini-2.5-flash", "gemini-2.5-pro"],
+        options=[],
         index=0,
     )
     temperature = st.slider(
