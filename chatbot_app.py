@@ -8,6 +8,82 @@ from chatbot import (
     stream_message,
     validate_api_key,
 )
+
+st.markdown(
+    """
+    <style>
+    /* 1. Force pure black across the entire page, header, sidebar, and bottom bar */
+    html, body, .stApp,
+    [data-testid="stAppViewContainer"],
+    [data-testid="stMain"],
+    [data-testid="stHeader"],
+    [data-testid="stToolbar"],
+    [data-testid="stBottom"],
+    [data-testid="stBottomBlockContainer"],
+    [data-testid="stSidebar"],
+    [data-testid="stSidebarContent"] {
+        background-color: #000000 !important;
+        color: #FFFFFF !important;
+    }
+
+    /* 2. Subtle border separating sidebar and bottom bar */
+    [data-testid="stSidebar"] {
+        border-right: 1px solid #1E1E1E !important;
+    }
+
+    /* 3. Pure black inputs, text areas, selectboxes, and chat input */
+    input, textarea, select,
+    [data-baseweb="input"],
+    [data-baseweb="base-input"],
+    [data-baseweb="textarea"],
+    [data-baseweb="select"] > div,
+    [data-testid="stChatInput"],
+    [data-testid="stChatInput"] > div {
+        background-color: #000000 !important;
+        color: #FFFFFF !important;
+        border-color: #2A2A2A !important;
+    }
+
+    /* 4. Dropdown menu popover list */
+    [data-baseweb="popover"],
+    [data-baseweb="menu"],
+    ul[role="listbox"] {
+        background-color: #000000 !important;
+        border: 1px solid #2A2A2A !important;
+    }
+
+    /* 5. Pure black buttons with subtle border */
+    .stButton > button, .stDownloadButton > button, [data-testid="stFormSubmitButton"] > button {
+        background-color: #000000 !important;
+        color: #FFFFFF !important;
+        border: 1px solid #333333 !important;
+    }
+    .stButton > button:hover, .stDownloadButton > button:hover, [data-testid="stFormSubmitButton"] > button:hover {
+        background-color: #141414 !important;
+        border-color: #666666 !important;
+    }
+
+    /* 6. Pure black chat message containers & code blocks */
+    [data-testid="stChatMessage"],
+    pre, code {
+        background-color: #000000 !important;
+        border: 1px solid #1E1E1E !important;
+        border-radius: 10px;
+    }
+
+    /* 7. Centered reading width & hide footer */
+    .block-container {
+        max-width: 820px;
+        padding-top: 2rem;
+        padding-bottom: 5rem;
+    }
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 # 1. Page Configuration
 st.set_page_config(
     page_title="Gemini AI Workspace",
