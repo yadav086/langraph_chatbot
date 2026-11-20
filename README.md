@@ -41,14 +41,14 @@ This project separates backend graph orchestration (`chatbot.py`) from the inter
 
 ```text
 +-------------------------------------------------------------------+
-|                        Streamlit UI (app.py)                      |
+|                        Streamlit UI (chatbot_app.py)                      |
 |  - Sidebar: API Key Auth, Thread Switcher, Model & Persona Config |
 |  - Workspace: Starter Prompts, History Viewer, Live Stream Output |
 +---------------------------------+---------------------------------+
                                   |
                                   v
 +-------------------------------------------------------------------+
-|                     LangGraph Backend (backend.py)                |
+|                     LangGraph Backend (chatbot.py)                |
 |  - StateGraph(ChatState) -> [START] -> [chat_node] -> [END]       |
 |  - ChatGoogleGenerativeAI (Streaming & Invocation)                |
 +---------------------------------+---------------------------------+
@@ -78,7 +78,7 @@ gemini-langgraph-assistant/
 
 ## Prerequisites
 
-- **Python 3.10+** installed on your system.
+- **Python 3.12+** installed on your system.
 - A valid **Google Gemini API Key** from [Google AI Studio](https://aistudio.google.com/).
 
 ---
@@ -109,7 +109,7 @@ pip install -r requirements.txt
 ### 3. Launch the Application
 
 ```bash
-streamlit run app.py
+streamlit run chatbot_app.py
 ```
 
 The application will open automatically in your browser at `http://localhost:8501`.
@@ -134,7 +134,7 @@ The application will open automatically in your browser at `http://localhost:850
 
 | Parameter | Location | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `model_name` | `chatbot_app.py` / `backend.py` | `gemini-3.5-flash-lite` | Gemini model used for generation |
+| `model_name` | `chatbot_app.py` / `chatbot.py` | `gemini-3.5-flash-lite` | Gemini model used for generation |
 | `temperature` | `chatbot_app.py` | `0.2` | Controls randomness (`0.0` = deterministic, `1.0` = creative) |
 | `system_prompt` | `chatbot_app.py` | `""` | Prepended as a `SystemMessage` on every turn |
 | `DB_PATH` | `chatbot.py` | `checkpoints.sqlite` | Local SQLite file storing LangGraph checkpoints |
