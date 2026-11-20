@@ -314,3 +314,20 @@ if not history:
     st.markdown("#### How can I help you today?")
     c1, c2, c3 = st.columns(3)
     with c1:
+        if st.button("Explain LangGraph memory", use_container_width=True):
+st.session_state.pending_prompt = (
+"Explain how LangGraph checkpointers persist conversation memory."
+)
+st.rerun()
+with c2:
+if st.button("Write a Python SQLite script", use_container_width=True):
+st.session_state.pending_prompt = (
+"Write a clean Python script to query a SQLite database safely."
+)
+st.rerun()
+with c3:
+if st.button("Summarize key AI trends", use_container_width=True):
+st.session_state.pending_prompt = (
+"Give me 5 concise bullet points on agentic AI workflows."
+)
+st.rerun()
