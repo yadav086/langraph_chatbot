@@ -67,8 +67,8 @@ This project separates backend graph orchestration (`chatbot.py`) from the inter
 
 ```text
 gemini-langgraph-assistant/
-├── app.py                # Streamlit frontend application
-├── backend.py            # LangGraph state graph, streaming & SQLite logic
+├── chatbot_app.py                # Streamlit frontend application
+├── chatbot.py            # LangGraph state graph, streaming & SQLite logic
 ├── requirements.txt      # Python package dependencies
 ├── README.md             # Project documentation
 └── checkpoints.sqlite    # Auto-generated SQLite database (created on first run)
