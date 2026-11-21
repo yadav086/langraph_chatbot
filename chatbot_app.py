@@ -128,7 +128,7 @@ with st.sidebar:
 
         if not api_input.strip():
 
-            st.error("Please enter your Google API key.")
+            st.error("Please enter your API key.")
 
         else:
 
@@ -308,7 +308,7 @@ with st.sidebar:
             "Be concise and provide practical examples."
         ),
         height=110,
-        help="Define the behaviour and personality of Gemini AI.",
+        help="Define the behaviour and personality of AI.",
     )
 
     st.divider()
@@ -325,7 +325,7 @@ header_col, export_col = st.columns([5, 1])
 with header_col:
 
     st.markdown(
-        "## :material/smart_toy: Gemini AI Assistant"
+        "## :material/smart_toy: AI Assistant"
     )
 
     st.markdown(
