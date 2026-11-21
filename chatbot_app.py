@@ -17,7 +17,7 @@ from chatbot import (
 # ============================================================
 
 st.set_page_config(
-    page_title="Gemini AI Workspace",
+    page_title="AI Workspace",
     page_icon=":material/smart_toy:",
     layout="centered",
     initial_sidebar_state="expanded",
@@ -282,12 +282,12 @@ with st.sidebar:
     # Manual Model Name Input - No Dropdown
 
     model_name = st.text_input(
-        "Gemini Model Name",
-        value="gemini-2.5-flash",
-        placeholder="Enter Gemini model name",
+        "Model Name",
+        value="",
+        placeholder="Enter model name",
         help=(
-            "Enter a Gemini model identifier supported "
-            "by your Google API key."
+            "Enter a model identifier supported "
+            "by your API key."
         ),
         key="model_name",
     )
@@ -347,7 +347,7 @@ with header_col:
 if not st.session_state.connected:
 
     st.info(
-        "Enter your **Google API Key** in the left sidebar "
+        "Enter your **API Key** in the left sidebar "
         "and click **Connect** to begin.",
         icon=":material/lock:",
     )
