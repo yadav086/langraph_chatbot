@@ -110,9 +110,9 @@ with st.sidebar:
     with st.form("api_key_form", border=False):
 
         api_input = st.text_input(
-            "Google API Key",
+            "API Key",
             type="password",
-            placeholder="Enter your Google API key",
+            placeholder="Enter your API key",
             value=st.session_state.api_key,
             label_visibility="collapsed",
         )
