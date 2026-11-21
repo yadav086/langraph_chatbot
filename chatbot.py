@@ -25,7 +25,8 @@ checkpointer = SqliteSaver(conn)
 
 def get_chatbot(
     api_key: str,
-    model_name: str = "gemini-3.5-flash-lite",
+    #model_name: str = "gemini-3.5-flash-lite",
+    model_name: str = "",
     temperature: float = 0.0,
     system_prompt: str = "",
 ):
